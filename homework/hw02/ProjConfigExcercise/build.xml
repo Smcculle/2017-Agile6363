@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+Shane McCulley
+CSCI 6363 
+HW 02 
+-->
+
+
+<project basedir="." default="help" name="ProjConfigExercise">
+
+
+  <!-- Structure Property Definitions -->
+
+  <property name="src.dir" value="src" />
+  <property name="build.dir" value="build" />
+  <property name="classes.dir" value="${build.dir}/classes" />
+  <property name="deploy.dir" value="${build.dir}/dist" />
+  <property name="lib.dir" value="lib/" />
+  <property name="build.debug" value="true" />
+  <property name="currentdir" value="." />
+
+  <!-- JUnit test variables -->
+  <property name="test.src.dir" value="test" />
+  <property name="test.classes.dir" value="build/test-classes" />
+
+  <path id="junit.class.path">
+    <fileset dir="${lib.dir}" includes="*.jar" />
+    <pathelement location="${classes.dir}" />
+    <pathelement location="${test.classes.dir}" />
+  </path>
+
+
+  <!-- Target: help -->
+  <target name="help">
+    <echo message="The following targets are available:" />
+    <echo message="  help:          DEFAULT - displays this help message if no other targets are given" />
+    <echo message="  clean:         Removes previously built files in directory ${build.dir}" />
+    <echo message="  compile_src:   Compiles all src files and places at ${build.dir}" />
+    <echo message="  compile_tests: Compiles all JUnit test cases to ${test.classes.dir}. Junit.jar included at base directory." />
+    <echo message="  run_tests:     Runs all tests in ${test.src.dir} and shows results." />
+    <echo message="  jar:           Packs all non test class files inside ${jar.dist} into an executable jar." />
+    <echo message="  run:           Runs the executable jar created by the jar target." />
+  </target>
+
+  <!-- Target: clean -->
+  <target name="clean">
+    <delete dir="${build.dir}" />
+  </target>
+
+
+  <!-- Target: compile_src -->
+  <target name="compile_src" depends="clean">
+    <mkdir dir="${classes.dir}" />
+    <javac nowarn="on" includeantruntime="false" deprecation="off" destdir="${classes.dir}" srcdir="${src.dir}" debug="${build.debug}">
+    </javac>
+  </target>
+
+
+  <!-- Target: compile_tests -->
+  <target name="compile_tests" depends="compile_src">
+    <mkdir dir="${test.classes.dir}" />
+    <javac deprecation="off" includeantruntime="false" srcdir="${test.src.dir}" destdir="${test.classes.dir}" debug="${build.debug}">
+      <classpath refid="junit.class.path" />
+    </javac>
+  </target>
+
+  <!-- Target: run_tests -->
+  <target name="run_tests" depends="compile_tests">
+    <junit printsummary="true" haltonfailure="no" maxmemory="1024m" showoutput="true">
+      <formatter type="plain" usefile="no" />
+      <classpath refid="junit.class.path" />
+      <batchtest fork="yes">
+        <fileset dir="${test.src.dir}" includes="**/Test*.java" />
+      </batchtest>
+    </junit>
+
+    <echo message="${line.separator}JUnit tests completed" />
+  </target>
+
+  <!-- Target: jar -->
+  <target name="jar" depends="compile_src">
+    <jar basedir="${classes.dir}" excludes="**/*Test*" includes="**/*.class" destfile="${deploy.dir}/${ant.project.name}.jar">
+      <manifest>
+        <attribute name="Main-Class" value="org.zibran.example.projConfig.Startup" />
+      </manifest>
+    </jar>
+  </target>
+
+  <!-- Target: run -->
+  <target name="run" depends="jar">
+    <java jar="${deploy.dir}/${ant.project.name}.jar" fork="true" />
+  </target>
+</project>
