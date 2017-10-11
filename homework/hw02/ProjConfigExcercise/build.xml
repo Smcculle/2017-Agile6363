@@ -31,7 +31,7 @@ HW 02
 
 
   <!-- Target: help -->
-  <target name="help">
+  <target name="help" description="DEFAULT - displays this help message if no other targets are given">
     <echo message="The following targets are available:" />
     <echo message="  help:          DEFAULT - displays this help message if no other targets are given" />
     <echo message="  clean:         Removes previously built files in directory ${build.dir}" />
@@ -43,13 +43,13 @@ HW 02
   </target>
 
   <!-- Target: clean -->
-  <target name="clean">
+  <target name="clean" description="Removes previously built files">
     <delete dir="${build.dir}" />
   </target>
 
 
   <!-- Target: compile_src -->
-  <target name="compile_src" depends="clean">
+  <target name="compile_src" depends="clean" description="Compiles all src files">
     <mkdir dir="${classes.dir}" />
     <javac nowarn="on" includeantruntime="false" deprecation="off" destdir="${classes.dir}" srcdir="${src.dir}" debug="${build.debug}">
     </javac>
@@ -57,7 +57,7 @@ HW 02
 
 
   <!-- Target: compile_tests -->
-  <target name="compile_tests" depends="compile_src">
+  <target name="compile_tests" depends="compile_src" description="Compiles all JUnit test cases">
     <mkdir dir="${test.classes.dir}" />
     <javac deprecation="off" includeantruntime="false" srcdir="${test.src.dir}" destdir="${test.classes.dir}" debug="${build.debug}">
       <classpath refid="junit.class.path" />
@@ -65,7 +65,7 @@ HW 02
   </target>
 
   <!-- Target: run_tests -->
-  <target name="run_tests" depends="compile_tests">
+  <target name="run_tests" depends="compile_tests" description="Runs all JUnit tests">
     <junit printsummary="true" haltonfailure="no" maxmemory="1024m" showoutput="true">
       <formatter type="plain" usefile="no" />
       <classpath refid="junit.class.path" />
@@ -78,7 +78,7 @@ HW 02
   </target>
 
   <!-- Target: jar -->
-  <target name="jar" depends="compile_src">
+  <target name="jar" depends="compile_src" description="Creates executable jar file">
     <jar basedir="${classes.dir}" excludes="**/*Test*" includes="**/*.class" destfile="${deploy.dir}/${ant.project.name}.jar">
       <manifest>
         <attribute name="Main-Class" value="org.zibran.example.projConfig.Startup" />
@@ -87,7 +87,7 @@ HW 02
   </target>
 
   <!-- Target: run -->
-  <target name="run" depends="jar">
+  <target name="run" depends="jar" description="Runs executable created by jar command">
     <java jar="${deploy.dir}/${ant.project.name}.jar" fork="true" />
   </target>
 </project>
