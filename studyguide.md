@@ -36,12 +36,12 @@ type:   **3 year review of theory introduction**
 ### Summary
 Studying intro of Agile concepts into academia.  No major problems and positive reactions. Broad range of students enjoy agile, a prerequisite for industry adoption in their opinion.  
 
-# Strengths  
+### Strengths  
 - Short and concise.
 - Issues range from technical and social to cognitive issues.
 - Emphasis on need for teamwork and communication in software engineering curriculum.  
 
-# Weaknesses
+### Weaknesses
 - Would have a stronger message with more detailed reasons.
 - Does not discuss alternatives to Agile or barriers to introducing Agile to current programs.
 - Some of the reasons were rather weak and unsupported, such as Agile supporting ethics development.  They should stick to  factual reasons backed up with citations from prior research and less opinions.   
