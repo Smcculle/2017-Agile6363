@@ -1,4 +1,4 @@
-Key points from the 21 research papers read in Agile Software Engineering
+Key points from the 21 research papers read in Agile Software Engineering.  See the [team project for this class](https://github.com/lacoste-blue/uno_classifieds "UNO classifieds") hosted at <http://unoc.lacoste.blue/>
 
 # Investigating the Skill Gap - Alex Radermacher 2014
 
